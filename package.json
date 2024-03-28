@@ -1,5 +1,11 @@
 {
   "dependencies": {
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "fs": "^0.0.1-security",
+    "sharp": "^0.33.3"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.11.30"
   }
 }
