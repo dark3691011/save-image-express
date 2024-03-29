@@ -3,10 +3,11 @@ import sharp from "sharp";
 import fs from "fs";
 import errorMessage from "../../errors";
 import { ResizeImageDto } from "../../dto";
+import { loggerMiddleware } from "../../middleware";
 
 const resizeImage = express.Router();
 
-resizeImage.get("/", async (req, res) => {
+resizeImage.get("/", loggerMiddleware, async (req, res) => {
   const { file_name = "", width = 0, height = 0 } = req.query;
 
   const queryData: ResizeImageDto = {
