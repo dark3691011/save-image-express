@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
-import { ResizeImageReqDto } from "../../dto";
-import { loggerMiddleware } from "../../middleware";
-import { resizeImageService } from "../../services";
+import { ResizeImageReqDto } from "../dto";
+import { loggerMiddleware } from "../../../middleware";
+import { resizeImageService } from "../service";
 
 const resizeImage = express.Router();
 

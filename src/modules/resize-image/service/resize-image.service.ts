@@ -1,11 +1,10 @@
-import { Request, Response } from "express";
-import sharp from "sharp";
 import fs from "fs";
+import sharp from "sharp";
 import { ResizeImageReqDto, ResizeImageResDto } from "../dto";
-import errorMessage from "../errors";
+import errorMessage from "../error";
 
 export const resizeImageService = async (
-  queryData: ResizeImageReqDto,
+  queryData: ResizeImageReqDto
 ): Promise<ResizeImageResDto> => {
   if (!queryData.fileName || !queryData.width || !queryData.height) {
     const returnData: ResizeImageResDto = {
@@ -38,7 +37,7 @@ export const resizeImageService = async (
         status: 403,
         error: errorMessage.IMAGE_NOT_FOUND.replace(
           "<name>",
-          queryData.fileName?.toString() || "unknown",
+          queryData.fileName?.toString() || "unknown"
         ),
       };
     }
@@ -61,7 +60,7 @@ export const resizeImageService = async (
       status: 403,
       error: errorMessage.CAN_NOT_ACCESS_IMAGE.replace(
         "<name>",
-        queryData?.fileName?.toString() || "unknown",
+        queryData?.fileName?.toString() || "unknown"
       ),
     };
   }

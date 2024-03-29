@@ -1,4 +1,4 @@
-import { httpResponse } from "../util";
+import { httpResponse } from "../../../util";
 
 export class ResizeImageReqDto {
   fileName!: string;
