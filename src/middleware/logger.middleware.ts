@@ -7,7 +7,7 @@ export const loggerMiddleware = (req: any, res: any, next: () => void) => {
       body: req.body,
       param: req.param,
       query: req.query,
-    })
+    }),
   );
   console.log("-------------------------");
   next();

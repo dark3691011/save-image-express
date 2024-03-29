@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import sharp from "sharp";
 import fs from "fs";
 import errorMessage from "../../errors";
@@ -7,9 +7,8 @@ import { loggerMiddleware } from "../../middleware";
 
 const resizeImage = express.Router();
 
-resizeImage.get("/", loggerMiddleware, async (req, res) => {
+resizeImage.get("/", loggerMiddleware, async (req: Request, res: Response) => {
   const { file_name = "", width = 0, height = 0 } = req.query;
-
   const queryData: ResizeImageDto = {
     fileName: String(file_name),
     width: Number(width),
@@ -17,10 +16,10 @@ resizeImage.get("/", loggerMiddleware, async (req, res) => {
   };
 
   if (!queryData.fileName || !queryData.width || !queryData.height) {
-    return res.status(403).send("file_name, width, height could not be empty");
+    return res.status(403).send(errorMessage.INPUT_FOR_IMAGE_IS_NOT_EMPTY);
   }
   if (isNaN(queryData.width) || isNaN(queryData.height)) {
-    return res.status(403).send("Invalid width or height");
+    return res.status(403).send(errorMessage.INVALID_IMAGE_INPUT);
   }
 
   try {
@@ -38,8 +37,8 @@ resizeImage.get("/", loggerMiddleware, async (req, res) => {
         .send(
           errorMessage.IMAGE_NOT_FOUND.replace(
             "<name>",
-            req.query?.fileName?.toString() || "unknown"
-          )
+            req.query?.fileName?.toString() || "unknown",
+          ),
         );
     }
     const resizedImage = await sharp(originalImagePath)
@@ -59,8 +58,8 @@ resizeImage.get("/", loggerMiddleware, async (req, res) => {
       .send(
         errorMessage.CAN_NOT_ACCESS_IMAGE.replace(
           "<name>",
-          req.query?.fileName?.toString() || "unknown"
-        )
+          req.query?.fileName?.toString() || "unknown",
+        ),
       );
   }
 });
