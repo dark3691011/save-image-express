@@ -1,5 +1,1 @@
-export class ResizeImageDto {
-  fileName!: string;
-  width!: number;
-  height!: number;
-}
+export * from "./resize-image.dto";

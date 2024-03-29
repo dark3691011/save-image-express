@@ -1,5 +1,5 @@
 import express from "express";
-import resizeImage from "./api/resize-image";
+import resizeImage from "./api/resize-image.route";
 const routes = express.Router();
 
 routes.get("/", (req, res) => {
