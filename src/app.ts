@@ -12,3 +12,5 @@ app.listen(PORT, () => {
     "Server is Successfully Running,and App is listening on port " + PORT
   );
 });
+
+export default app;
