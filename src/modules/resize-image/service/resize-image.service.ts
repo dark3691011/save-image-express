@@ -3,15 +3,14 @@ import sharp from "sharp";
 import { ResizeImageReqDto, ResizeImageResDto } from "../dto";
 import errorMessage from "../error";
 
-export const resizeImageService = async (
+export const resizeImageFunc = async (
   queryData: ResizeImageReqDto
 ): Promise<ResizeImageResDto> => {
   if (!queryData.fileName || !queryData.width || !queryData.height) {
-    const returnData: ResizeImageResDto = {
+    return {
       status: 403,
       error: errorMessage.INPUT_FOR_IMAGE_IS_NOT_EMPTY,
     };
-    return returnData;
   }
   if (isNaN(queryData.width) || isNaN(queryData.height)) {
     return {
@@ -35,10 +34,8 @@ export const resizeImageService = async (
     if (!fs.existsSync(originalImagePath)) {
       return {
         status: 403,
-        error: errorMessage.IMAGE_NOT_FOUND.replace(
-          "<name>",
-          queryData.fileName?.toString() || "unknown"
-        ),
+        error:
+          errorMessage.IMAGE_NOT_FOUND + `: ${queryData.fileName?.toString()}`,
       };
     }
     const resizedImage = await sharp(originalImagePath)
@@ -58,10 +55,9 @@ export const resizeImageService = async (
     console.log(error);
     return {
       status: 403,
-      error: errorMessage.CAN_NOT_ACCESS_IMAGE.replace(
-        "<name>",
-        queryData?.fileName?.toString() || "unknown"
-      ),
+      error:
+        errorMessage.CAN_NOT_ACCESS_IMAGE +
+        `: ${queryData.fileName?.toString()}`,
     };
   }
 };

@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import { ResizeImageReqDto } from "../dto";
 import { loggerMiddleware } from "../../../middleware";
-import { resizeImageService } from "../service";
+import { resizeImageFunc } from "../service";
 
 const resizeImage = express.Router();
 
@@ -13,7 +13,7 @@ resizeImage.get("/", loggerMiddleware, async (req: Request, res: Response) => {
     height: Number(height),
   };
 
-  const result = await resizeImageService(queryData);
+  const result = await resizeImageFunc(queryData);
   if (result.error) {
     return res.status(result.status).send(result.error);
   }
